@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>NovaDash MCQ</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:#0b1020;color:#eef2ff}
+button,input,select,textarea{font:inherit}button{cursor:pointer;border:0}
+.app{min-height:100vh;display:flex}.side{width:245px;background:#11182d;padding:20px;position:fixed;inset:0 auto 0 0;border-right:1px solid #26304d}
+.logo{font-size:25px;font-weight:900;margin-bottom:28px}.logo span{color:#6c7cff}
+.nav button{width:100%;padding:12px;margin:5px 0;border-radius:12px;background:transparent;color:#aeb8d5;text-align:left}
+.nav button:hover,.nav button.active{background:#26345c;color:white}.main{margin-left:245px;width:calc(100% - 245px);padding:25px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.pill{background:#202b4b;padding:9px 14px;border-radius:30px;color:#aeb8d5}
+.page{display:none}.page.active{display:block}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:15px}
+.card{background:#121b33;border:1px solid #26304d;border-radius:18px;padding:20px;box-shadow:0 10px 35px #0002}
+.stat b{font-size:30px;display:block;margin-top:8px}.muted{color:#8f9bb9}.btn{padding:11px 16px;border-radius:11px;background:#6575ff;color:white;font-weight:700}.btn.secondary{background:#26345c}.btn.danger{background:#d94b62}.btn.success{background:#19a974}
+input,select,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid #334064;background:#0d1428;color:#fff;outline:none}
+textarea{min-height:220px;resize:vertical}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.form{display:grid;gap:12px}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.qbox{margin-top:20px}.option{padding:14px;border:1px solid #34405f;border-radius:12px;margin:9px 0;background:#101a31;cursor:pointer}.option:hover{border-color:#7180ff}.option.selected{background:#253568;border-color:#7281ff}
+.progress{height:8px;background:#252f4d;border-radius:20px;overflow:hidden}.progress i{display:block;height:100%;background:#7180ff;width:0}
+.timer{font-size:22px;font-weight:800}.result{text-align:center;padding:35px}.score{font-size:55px;font-weight:900;color:#7d8bff}
+table{width:100%;border-collapse:collapse}th,td{padding:12px;border-bottom:1px solid #283452;text-align:left}
+.small{font-size:13px}.tag{display:inline-block;background:#25345c;padding:5px 9px;border-radius:20px;margin:3px;font-size:12px}
+.notice{padding:12px;border-radius:10px;background:#1d2948;margin:10px 0}
+.question-list{display:flex;flex-direction:column;gap:12px}
+.question-card{background:#101a31;border:1px solid #2c395b;border-radius:15px;padding:16px}
+.question-card .q-title{font-size:16px;font-weight:800;line-height:1.5;margin-bottom:10px}
+.question-card .opts{display:flex;flex-direction:column;gap:7px}
+.question-card .opt{padding:9px 11px;border-radius:9px;background:#17223d;color:#cbd5f5}
+.question-card .correct{border-left:4px solid #19a974;background:#19382f}
+.edit-grid{display:grid;gap:9px;margin-top:12px}.edit-grid textarea{min-height:80px}
+.exam-list{display:flex;flex-direction:column;gap:16px}.exam-card{background:#101a31;border:1px solid #2c395b;border-radius:17px;padding:18px}.exam-card h2{font-size:18px;line-height:1.5;margin:0 0 12px}.exam-options{display:flex;flex-direction:column;gap:8px}.exam-options .option{margin:0}.submit-answer{margin-top:12px;width:100%}.answer-result{margin-top:12px;padding:12px;border-radius:11px}.answer-result.right{background:#163c31;border:1px solid #258b6c}.answer-result.wrong{background:#41202b;border:1px solid #a64b62}.detail-list{display:flex;flex-direction:column;gap:12px}.detail-card{padding:15px;border-radius:14px;background:#101a31;border:1px solid #2c395b}.detail-card.right{border-left:5px solid #19a974}.detail-card.wrong{border-left:5px solid #d94b62}.result-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.result-summary .card{text-align:center}@media(max-width:650px){.result-summary{grid-template-columns:1fr}}
+@media(max-width:900px){
+ .side{width:190px}.main{margin-left:190px;width:calc(100% - 190px)}
+}
+@media(max-width:650px){
+ body{padding-bottom:72px}.app{display:block}.side{position:fixed;z-index:50;left:0;right:0;bottom:0;top:auto;width:100%;height:68px;padding:7px 8px;background:#11182df2;backdrop-filter:blur(12px);border-right:0;border-top:1px solid #26304d}
+ .logo{display:none}.nav{display:flex;justify-content:space-around;gap:4px}.nav button{margin:0;padding:9px 7px;text-align:center;font-size:11px;width:auto;flex:1}.nav button:first-letter{font-size:18px}
+ .main{margin:0;width:100%;padding:12px}.top{gap:8px}.top h1{font-size:22px}.top .muted{font-size:12px}
+ .grid{grid-template-columns:1fr 1fr;gap:10px}.card{padding:15px;border-radius:15px}.row{grid-template-columns:1fr}.stat b{font-size:23px}
+ table{font-size:12px;display:block;overflow-x:auto;white-space:nowrap}.actions .btn{flex:1}
+ textarea{min-height:260px}
+}
+@media(min-width:1000px){.main{max-width:1500px}.card{transition:.2s}.card:hover{transform:translateY(-2px)}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="side">
+  <div class="logo">Nova<span>Dash</span></div>
+  <div class="nav">
+    <button onclick="showPage('user')" class="active">🏠 User</button>
+    <button onclick="showPage('exam')">📝 Exam</button>
+    <button onclick="showPage('score')">🏆 Scores</button>
+    <button onclick="showPage('admin')">🛠️ Admin</button>
+    <button onclick="showPage('bulk')">📦 Bulk Array</button>
+  </div>
+</aside>
+
+<main class="main">
+<div class="top"><div><h1 id="title">NovaDash</h1><div class="muted">MCQ Examination System</div></div><div class="pill" id="userBadge">Guest</div></div>
+
+<section id="user" class="page active">
+  <div class="grid">
+    <div class="card stat">Questions<b id="statQ">0</b></div>
+    <div class="card stat">Attempts<b id="statA">0</b></div>
+    <div class="card stat">Best Score<b id="statB">0%</b></div>
+    <div class="card stat">Categories<b id="statC">0</b></div>
+  </div>
+  <div class="card" style="margin-top:18px">
+    <h2>Start Exam</h2>
+    <div class="form">
+      <input id="player" placeholder="Enter your name">
+      <div class="row">
+        <select id="cat" onchange="updateSubs()"></select>
+        <select id="sub"></select>
+      </div>
+      <div class="row">
+        <select id="count"><option value="5">5 Questions</option><option value="10">10 Questions</option><option value="20">20 Questions</option><option value="999">All Questions</option></select>
+        <div class="card" style="padding:12px 14px"><b>⏱️ Time</b><div class="muted small" style="margin-top:4px">1 minute per MCQ</div></div>
+      </div>
+      <button class="btn" onclick="startExam()">Start Random Exam 🚀</button>
+    </div>
+  </div>
+</section>
+
+<section id="exam" class="page">
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;gap:10px;align-items:center">
+      <div><b id="examTitle">Random Exam</b><div class="muted small" id="examProgress"></div></div>
+      <span class="timer" id="timer"></span>
+    </div>
+    <div class="progress" style="margin-top:12px"><i id="bar"></i></div>
+  </div>
+  <div id="examQuestions" class="exam-list" style="margin-top:16px"></div>
+  <div id="examSubmitArea" class="card" style="margin-top:16px">
+    <button id="submitExamBtn" type="button" class="btn" style="width:100%" onclick="window.submitExam()">🚀 Submit All Answers & Show Score</button>
+  </div>
+</section>
+
+<section id="score" class="page">
+  <div id="scoreResult" class="card" style="margin-bottom:16px"><h2>📊 Score</h2><p class="muted">Submit an exam to see your score here.</p></div>
+  <div class="card"><h2>Exam History</h2><div id="history"></div></div>
+</section>
+
+<section id="admin" class="page">
+  <div class="grid">
+    <div class="card stat">Total MCQs<b id="aQ">0</b></div>
+    <div class="card stat">Custom MCQs<b id="aCustom">0</b></div>
+    <div class="card stat">Attempts<b id="aAttempts">0</b></div>
+  </div>
+  <div class="card" style="margin-top:18px">
+    <h2>🧹 Local Storage</h2>
+    <p class="muted small">Scores, exam history and player name clear হবে। আপনার যোগ করা Custom MCQ এবং Category/Sub-category মুছে যাবে না।</p>
+    <button class="btn danger" onclick="clearLocalStorageKeepMCQ()">🧹 Clear Storage (Keep MCQs)</button>
+    <div id="storageMsg"></div>
+  </div>
+
+  <div class="card" style="margin-top:18px">
+    <h2>🗂️ Category & Sub-category Manager</h2>
+    <p class="muted small">Admin এখান থেকে নতুন Category এবং তার Sub-category তৈরি করতে পারবে। এগুলো Bulk Array ও User Exam filter-এও ব্যবহার হবে।</p>
+    <div class="row">
+      <input id="newCategory" placeholder="New Category">
+      <input id="newSubcategory" placeholder="New Sub-category">
+    </div>
+    <div class="actions">
+      <button class="btn success" onclick="addCategorySubcategory()">➕ Add Category / Sub-category</button>
+    </div>
+    <div id="categoryManagerList" style="margin-top:12px"></div>
+  </div>
+
+  <div class="card" style="margin-top:18px">
+    <h2>🔎 MCQ Search & Manager</h2>
+    <div class="row">
+      <input id="search" placeholder="Search question, option, category..." oninput="renderAdmin()">
+      <select id="adminCat" onchange="updateAdminSubs()"></select>
+    </div>
+    <div class="row" style="margin-top:10px">
+      <select id="adminSub" onchange="renderAdmin()"></select>
+      <select id="adminType" onchange="renderAdmin()">
+        <option value="ALL">All MCQs</option>
+        <option value="SINGLE">Single Answer</option>
+        <option value="MULTI">Multiple Answer</option>
+      </select>
+    </div>
+    <div id="adminCount" class="muted small" style="margin-top:10px"></div>
+    <div id="adminList" class="question-list" style="margin-top:15px"></div>
+  </div>
+</section>
+
+<section id="bulk" class="page">
+  <div class="card">
+    <h2>📦 Bulk Array Paste</h2>
+    <p class="muted">প্রথমে Category ও Sub-category নির্বাচন করুন। এরপর Array-এর প্রতিটি object-এ শুধু Question, Options, Answer এবং Explanation দিন।</p>
+    <div class="row">
+      <select id="bulkCat" onchange="updateBulkSubs()"><option value="ALL">Select Category</option></select>
+      <select id="bulkSub" onchange="renderBulkPreview()"><option value="ALL">Select Sub-category</option></select>
+    </div>
+    <textarea id="bulkInput" oninput="renderBulkPreview()" placeholder='[
+  {
+    q:"Force-এর SI unit কোনটি?",
+    options:["Newton","Joule","Watt","Pascal"],
+    answer:0,
+    explanation:"Force-এর SI unit is Newton."
+  }
+]'></textarea>
+    <div class="actions">
+      <button class="btn" onclick="pasteSample()">Load Sample</button>
+      <button class="btn success" onclick="addBulk()">Add All MCQs</button>
+      <button class="btn secondary" onclick="clearBulk()">Clear</button>
+    </div>
+    <div id="bulkMsg"></div>
+    <div class="notice"><b id="bulkPreviewCount">0</b> valid MCQ detected</div>
+    <div id="bulkPreview" class="small"></div>
+    <h3>Format</h3>
+<pre class="card" style="overflow:auto">[
+ {q:"2 + 2 = ?",options:["3","4","5","6"],answer:1,explanation:"2 + 2 = 4."},
+ {q:"Which are even numbers?",options:["2","3","4","5"],answer:[0,2],explanation:"2 and 4 are even."}
+]</pre>
+  </div>
+</section>
+</main>
+</div>
+
+<script>
+const BASE=[
+{category:"Science",sub:"Physics",q:"Force-এর SI unit কোনটি?",options:["Newton","Joule","Watt","Pascal"],answer:0,explain:"Force-এর SI unit is Newton."},
+{category:"Science",sub:"Physics",q:"F = ma সূত্রটি কার?",options:["Newton","Einstein","Galileo","Faraday"],answer:0,explain:"Newton's second law."},
+{category:"Math",sub:"Arithmetic",q:"12 × 5 = ?",options:["50","60","70","80"],answer:1,explain:"12 × 5 = 60."},
+{category:"English",sub:"Grammar",q:"He ___ to school every day.",options:["go","goes","going","gone"],answer:1,explain:"Singular subject He takes goes."}
+];
+
+let custom=JSON.parse(localStorage.getItem("novaCustom")||"[]");
+let scores=JSON.parse(localStorage.getItem("novaScores")||"[]");
+let adminCategories=JSON.parse(localStorage.getItem("novaCategories")||"[]");
+let bank=[...BASE,...custom], exam=[],index=0,answers=[],timerID=null,seconds=0;
+
+function norm(v){return String(v==null?"":v).trim();}
+function key(v){return norm(v).toLowerCase();}
+function categoryPairs(){
+  const pairs=[];
+  const seen=new Set();
+  [...adminCategories,...bank.map(q=>({category:q.category,sub:q.sub}))].forEach(x=>{
+    const c=norm(x.category), s=norm(x.sub);
+    if(!c)return;
+    const k=key(c)+"||"+key(s);
+    if(!seen.has(k)){seen.add(k);pairs.push({category:c,sub:s});}
+  });
+  return pairs;
+}
+function saveCategories(){
+  localStorage.setItem("novaCategories",JSON.stringify(adminCategories));
+}
+function clearLocalStorageKeepMCQ(){
+  if(!confirm("Clear scores, history and player data? Added MCQs and categories will be kept.")) return;
+  localStorage.removeItem("novaScores");
+  localStorage.removeItem("novaPlayer");
+  scores=[];
+  if($("scoreResult")) $("scoreResult").innerHTML="<h2>📊 Score</h2><p class='muted'>Submit an exam to see your score here.</p>";
+  if($("storageMsg")) $("storageMsg").innerHTML="<div class='notice'>✅ Storage cleared. Added MCQs and categories are safe.</div>";
+  updateStats();
+  renderHistory();
+}
+
+const $=id=>document.getElementById(id);
+function save(){
+ localStorage.setItem("novaCustom",JSON.stringify(custom));
+ localStorage.setItem("novaScores",JSON.stringify(scores));
+ bank=[...BASE,...custom];
+ updateStats();
+ if($("adminCat"))updateAdminFilters();
+ if($("bulkCat"))renderBulkFilters();
+ if($("categoryManagerList"))renderCategoryManager();
+}
+
+function showPage(id){
+ document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));
+ $(id).classList.add("active");
+ document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));
+ const map={user:0,exam:1,score:2,admin:3,bulk:4};const navBtn=document.querySelectorAll(".nav button")[map[id]];if(navBtn)navBtn.classList.add("active");
+ if(id==="score")renderHistory(); if(id==="admin")renderAdmin(); if(id==="user")updateStats();
+}
+
+function updateStats(){
+ $("statQ").textContent=bank.length;$("aQ").textContent=bank.length;$("aCustom").textContent=custom.length;$("aAttempts").textContent=scores.length;$("statA").textContent=scores.length;
+ const cats=[...new Set(bank.map(x=>x.category))];$("statC").textContent=cats.length;
+ const best=scores.length?Math.max(...scores.map(x=>x.accuracy)):0;$("statB").textContent=best+"%";
+ $("userBadge").textContent=localStorage.getItem("novaPlayer")||"Guest";
+ fillCategories();
+}
+function fillCategories(){
+ const cats=[...new Set(categoryPairs().map(x=>x.category))].sort((a,b)=>a.localeCompare(b));
+ const current=$("cat").value||"ALL";
+ $("cat").innerHTML='<option value="ALL">All Categories</option>'+cats.map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join("");
+ if(cats.includes(current)) $("cat").value=current;
+ updateSubs();
+}
+function updateSubs(){
+ const c=norm($("cat").value||"ALL");
+ const subs=[...new Set(categoryPairs()
+   .filter(x=>c==="ALL"||key(x.category)===key(c))
+   .map(x=>x.sub).filter(Boolean))].sort((a,b)=>a.localeCompare(b));
+ const current=$("sub").value||"ALL";
+ $("sub").innerHTML='<option value="ALL">All Sub-categories</option>'+subs.map(s=>`<option value="${esc(s)}">${esc(s)}</option>`).join("");
+ if(subs.includes(current)) $("sub").value=current;
+}
+
+function same(a,b){
+ a=[...a].sort((x,y)=>x-y); b=[...b].sort((x,y)=>x-y);
+ return a.length===b.length && a.every((v,i)=>v===b[i]);
+}
+function shuffle(a){return [...a].sort(()=>Math.random()-.5)}
+function startExam(){
+ const name=$("player").value.trim()||"Guest";
+ localStorage.setItem("novaPlayer",name);
+ $("userBadge").textContent=name;
+
+ const c=$("cat").value;
+ const s=$("sub").value;
+
+ // Strict category + sub-category filtering.
+ let pool=bank.filter(q =>
+   (c==="ALL" || key(q.category)===key(c)) &&
+   (s==="ALL" || key(q.sub)===key(s))
+ );
+
+ // Fresh random order on every new exam.
+ pool=shuffle(pool);
+ const wanted=Math.max(1,+$("count").value||5);
+ pool=pool.slice(0,Math.min(wanted,pool.length));
+
+ if(!pool.length){
+   alert("এই Category/Sub-category-তে কোনো MCQ নেই।");
+   return;
+ }
+
+ // Randomize option order too, while remapping correct indexes.
+ exam=pool.map(q=>{
+   const correct=new Set(Array.isArray(q.answer)?q.answer:[q.answer]);
+   const order=shuffle(q.options.map((_,i)=>i));
+   return {
+     ...q,
+     _submitted:false,
+     options:order.map(i=>q.options[i]),
+     answer:Array.isArray(q.answer)
+       ? order.map((oldIdx,newIdx)=>correct.has(oldIdx)?newIdx:null)
+           .filter(x=>x!==null).sort((a,b)=>a-b)
+       : order.indexOf(q.answer)
+   };
+ });
+
+ index=0;
+ answers=[];
+ // Exactly 1 minute is allocated per MCQ.
+ seconds=exam.length*60;
+ showPage("exam");
+ renderQuestion();
+}
+function renderQuestion(){
+ clearInterval(timerID);
+ $("examProgress").textContent=`${exam.length} Questions • 1 min/MCQ`;
+ $("bar").style.width="100%";
+ $("examQuestions").innerHTML=exam.map((q,qi)=>{
+   const selected=answers[qi]||[];
+   const multi=Array.isArray(q.answer);
+   return `<div class="exam-card" id="exam-card-${qi}">
+     <h2>${qi+1}. ${esc(q.q)}</h2>
+     <div class="exam-options">${q.options.map((o,i)=>`<div class="option ${selected.includes(i)?"selected":""}" onclick="chooseAnswer(${qi},${i})">${String.fromCharCode(65+i)}. ${esc(o)}</div>`).join("")}</div>
+     <div class="muted small" style="margin-top:9px">${multi?"Multiple answers":"Select one answer"}</div>
+   </div>`;
+ }).join("");
+ // Total exam time = 1 minute × number of MCQs.
+ if(exam.length){
+   const updateTimer=()=>{
+     const m=Math.floor(seconds/60), sec=String(seconds%60).padStart(2,"0");
+     $("timer").textContent=`⏱️ ${m}:${sec}`;
+   };
+   updateTimer();
+   timerID=setInterval(()=>{
+     seconds--;
+     updateTimer();
+     if(seconds<=0){
+       clearInterval(timerID);
+       submitExam();
+     }
+   },1000);
+ }else $("timer").textContent="";
+}
+function chooseAnswer(qi,i){
+ const q=exam[qi],multi=Array.isArray(q.answer);
+ if(multi){
+   let a=answers[qi]||[];answers[qi]=a.includes(i)?a.filter(x=>x!==i):[...a,i].sort((a,b)=>a-b);
+ }else answers[qi]=[i];
+ renderQuestion();
+}
+function submitExam(){
+ try{
+   clearInterval(timerID);
+   if(!Array.isArray(exam)||exam.length===0){ alert("No active exam found. Please start an exam first."); return; }
+   let correct=0;
+   const details=exam.map((q,i)=>{
+     const user=Array.isArray(answers[i])?answers[i]:[];
+     const corr=Array.isArray(q.answer)?q.answer:[q.answer];
+     const right=same(user,corr);
+     if(right) correct++;
+     return {q:q.q,options:q.options,user:[...user],correct:[...corr],explain:q.explain||""};
+   });
+   const accuracy=Math.round(correct/exam.length*100);
+   const player=localStorage.getItem("novaPlayer")||"Guest";
+   scores.unshift({name:player,date:new Date().toLocaleString(),correct,total:exam.length,accuracy,details});
+   scores=scores.slice(0,100);
+   localStorage.setItem("novaScores",JSON.stringify(scores));
+   showResult(correct,accuracy);
+ }catch(err){
+   console.error("Submit error:",err);
+   alert("Submit failed. Please start the exam again.");
+ }
+}
+function showResult(correct,accuracy){
+ const summary=`<div class="result-summary">
+   <div class="card"><div class="muted">Score</div><b class="score">${accuracy}%</b></div>
+   <div class="card"><div class="muted">Correct</div><b style="font-size:30px">${correct}</b></div>
+   <div class="card"><div class="muted">Wrong</div><b style="font-size:30px">${exam.length-correct}</b></div>
+ </div>`;
+ const details=exam.map((q,i)=>{
+   const user=answers[i]||[], corr=Array.isArray(q.answer)?q.answer:[q.answer], right=same(user,corr);
+   const ua=user.length?user.map(x=>`${String.fromCharCode(65+x)}. ${esc(q.options[x])}`).join(", "):"Not answered";
+   const ca=corr.map(x=>`${String.fromCharCode(65+x)}. ${esc(q.options[x])}`).join(", ");
+   return `<div class="detail-card ${right?"right":"wrong"}">
+     <b>${i+1}. ${esc(q.q)}</b>
+     <p><b>${right?"✅ Right":"❌ Wrong"}</b></p>
+     <div class="small"><b>Your answer:</b> ${ua}</div>
+     <div class="small" style="margin-top:5px"><b>Correct answer:</b> ${ca}</div>
+     ${q.explain?`<div class="notice small"><b>Explanation:</b> ${esc(q.explain)}</div>`:""}
+   </div>`;
+ }).join("");
+ const resultHTML=summary+`<div class="card" style="margin-top:16px"><h2>📋 Answer Details</h2><div class="detail-list">${details}</div></div><button class="btn" style="width:100%;margin-top:16px" onclick="showPage('user')">🏠 Back to Dashboard</button>`;
+ $("scoreResult").innerHTML=resultHTML;
+ showPage("score");
+ $("timer").textContent="";
+ $("bar").style.width="100%";
+}
+function addMCQArray(arr){
+ if(!Array.isArray(arr))throw new Error("Input must be an array.");
+ const valid=arr.map((q,n)=>{
+  if(!q||typeof q!=="object")throw new Error("Question "+(n+1)+" is invalid.");
+  if(!q.category||!q.sub||!q.q||!Array.isArray(q.options)||q.options.length<2)throw new Error("Question "+(n+1)+" has missing fields.");
+  const ans=Array.isArray(q.answer)?q.answer:q.answer;
+  const list=Array.isArray(ans)?ans:[ans];
+  if(!list.every(x=>Number.isInteger(x)&&x>=0&&x<q.options.length))throw new Error("Invalid answer index in question "+(n+1));
+  if(new Set(list).size!==list.length)throw new Error("Duplicate answer index in question "+(n+1));
+  const category=norm(q.category), sub=norm(q.sub);
+  if(!category||!sub)throw new Error("Question "+(n+1)+" must have Category and Sub-category.");
+  return {category,sub,q:norm(q.q),options:q.options.map(x=>norm(x)),answer:Array.isArray(ans)?[...ans]:ans,explain:norm(q.explain||q.explanation)};
+ });
+ custom.push(...valid);save();return valid.length;
+}
+function addBulk(){
+ const raw=$("bulkInput").value.trim();
+ try{
+   const arr=parseBulk();
+   const n=addMCQArray(arr);
+   const c=norm($("bulkCat").value), s=norm($("bulkSub").value);
+   if(c && s && !adminCategories.some(x=>key(x.category)===key(c)&&key(x.sub)===key(s))){
+     adminCategories.push({category:c,sub:s});
+   }
+   saveCategories();
+   $("bulkMsg").innerHTML=`<div class="notice">✅ ${n} MCQ added to <b>${esc(c)}</b> → <b>${esc(s)}</b>.</div>`;
+   $("bulkInput").value="";
+   updateStats(); renderBulkFilters(); updateAdminFilters(); renderCategoryManager();
+ }catch(e){
+   $("bulkMsg").innerHTML=`<div class="notice">❌ ${esc(e.message)}</div>`;
+ }
+}
+function pasteSample(){
+ $("bulkInput").value=`[
+  {q:"Which is a vector quantity?",options:["Speed","Mass","Velocity","Time"],answer:2,explanation:"Velocity has magnitude and direction."},
+  {q:"Which are even numbers?",options:["2","3","4","5"],answer:[0,2],explanation:"2 and 4 are even."}
+ ]`;
+ renderBulkPreview();
+}
+function clearBulk(){$("bulkInput").value="";$("bulkMsg").innerHTML=""}
+
+function getCategories(list=bank){
+ return [...new Set(categoryPairs().map(x=>x.category))].sort((a,b)=>a.localeCompare(b));
+}
+function updateAdminFilters(){
+ const oldC=$("adminCat").value||"ALL";
+ const cats=getCategories();
+ $("adminCat").innerHTML='<option value="ALL">All Categories</option>'+cats.map(x=>`<option value="${esc(x)}">${esc(x)}</option>`).join("");
+ if(cats.some(x=>key(x)===key(oldC))) $("adminCat").value=oldC;
+ updateAdminSubs();
+}
+function updateAdminSubs(){
+ const c=norm($("adminCat").value||"ALL");
+ const subs=[...new Set(categoryPairs().filter(x=>c==="ALL"||key(x.category)===key(c)).map(x=>x.sub).filter(Boolean))].sort((a,b)=>a.localeCompare(b));
+ const old=$("adminSub").value||"ALL";
+ $("adminSub").innerHTML='<option value="ALL">All Sub-categories</option>'+subs.map(x=>`<option value="${esc(x)}">${esc(x)}</option>`).join("");
+ if(subs.some(x=>key(x)===key(old))) $("adminSub").value=old;
+ renderAdmin();
+}
+
+function addCategorySubcategory(){
+ const c=norm($("newCategory").value), s=norm($("newSubcategory").value);
+ if(!c){alert("Category লিখুন।");return;}
+ const exists=adminCategories.some(x=>key(x.category)===key(c)&&key(x.sub)===key(s));
+ if(exists){alert("এই Category/Sub-category already exists.");return;}
+ adminCategories.push({category:c,sub:s});
+ saveCategories();
+ $("newCategory").value="";$("newSubcategory").value="";
+ updateStats();
+ renderCategoryManager();
+ updateAdminFilters();
+ renderBulkFilters();
+ alert(s?`Category "${c}" + Sub-category "${s}" added.`:`Category "${c}" added.`);
+}
+function deleteCategoryPair(i){
+ const pair=adminCategories[i];
+ if(!pair)return;
+ if(!confirm(`Delete "${pair.category}"${pair.sub?` → "${pair.sub}"`:""} from Admin categories? Existing MCQs will not be deleted.`))return;
+ adminCategories.splice(i,1);saveCategories();updateStats();renderCategoryManager();updateAdminFilters();renderBulkFilters();
+}
+function renderCategoryManager(){
+ const el=$("categoryManagerList"); if(!el)return;
+ const pairs=categoryPairs();
+ el.innerHTML=pairs.length?pairs.map((p,i)=>{
+   const customIndex=adminCategories.findIndex(x=>key(x.category)===key(p.category)&&key(x.sub)===key(p.sub));
+   const count=bank.filter(q=>key(q.category)===key(p.category)&&(p.sub?key(q.sub)===key(p.sub):true)).length;
+   return `<div class="question-card" style="padding:12px;margin-top:8px">
+     <span class="tag">📁 ${esc(p.category)}</span>
+     ${p.sub?`<span class="tag">📂 ${esc(p.sub)}</span>`:`<span class="tag">No sub-category</span>`}
+     <span class="tag">${count} MCQ</span>
+     ${customIndex>=0?`<button class="btn danger" style="float:right;padding:7px 10px" onclick="deleteCategoryPair(${customIndex})">Delete</button>`:""}
+   </div>`;
+ }).join(""):"<div class='muted'>No categories yet.</div>";
+}
+function renderBulkFilters(){
+ const c=$("bulkCat").value||"ALL";
+ const cats=getCategories();
+ $("bulkCat").innerHTML='<option value="ALL">Select Category</option>'+cats.map(x=>`<option value="${esc(x)}">${esc(x)}</option>`).join("");
+ if(cats.some(x=>key(x)===key(c))) $("bulkCat").value=c;
+ updateBulkSubs();
+}
+function updateBulkSubs(){
+ const c=norm($("bulkCat").value||"ALL");
+ const old=$("bulkSub").value||"ALL";
+ const subs=[...new Set(categoryPairs().filter(x=>c!=="ALL"&&key(x.category)===key(c)).map(x=>x.sub).filter(Boolean))].sort((a,b)=>a.localeCompare(b));
+ $("bulkSub").innerHTML='<option value="ALL">Select Sub-category</option>'+subs.map(x=>`<option value="${esc(x)}">${esc(x)}</option>`).join("");
+ if(subs.some(x=>key(x)===key(old))) $("bulkSub").value=old;
+ renderBulkPreview();
+}
+function parseBulk(){
+ const raw=$("bulkInput").value.trim();
+ if(!raw)return [];
+ const arr=Function('"use strict";return ('+raw+')')();
+ if(!Array.isArray(arr))throw new Error("Bulk input must be an array.");
+ const c=norm($("bulkCat").value||"ALL"), s=norm($("bulkSub").value||"ALL");
+ if(c==="ALL"||!c)throw new Error("Please select a Category first.");
+ if(s==="ALL"||!s)throw new Error("Please select a Sub-category first.");
+ return arr.map((q,i)=>{
+   if(!q||typeof q!=="object")throw new Error("Question "+(i+1)+" is invalid.");
+   return {
+     category:c,
+     sub:s,
+     q:norm(q.q||q.question),
+     options:Array.isArray(q.options)?q.options.map(norm):[],
+     answer:q.answer,
+     explain:norm(q.explanation||q.explain)
+   };
+ });
+}
+function renderBulkPreview(){
+ if(!$("bulkPreviewCount"))return;
+ try{
+   const arr=parseBulk();
+   $("bulkPreviewCount").textContent=arr.length;
+   $("bulkPreview").innerHTML=arr.slice(0,30).map((q,i)=>`<div class="question-card" style="margin-top:8px">
+     <b>${i+1}. ${esc(q.q)}</b>
+     <div><span class="tag">${esc(q.category)}</span><span class="tag">${esc(q.sub)}</span><span class="tag">${Array.isArray(q.answer)?"Multiple":"Single"}</span></div>
+   </div>`).join("") || "<div class='muted'>Paste an array to preview.</div>";
+ }catch(e){
+   $("bulkPreviewCount").textContent="0";
+   $("bulkPreview").innerHTML=`<div class="notice">ℹ️ ${esc(e.message)}</div>`;
+ }
+}
+function renderAdmin(){
+ if(!$("adminList"))return;
+ const term=($("search").value||"").toLowerCase().trim(), c=$("adminCat").value||"ALL", sub=$("adminSub").value||"ALL", type=$("adminType").value||"ALL";
+ let list=bank.map((q,i)=>({...q,_i:i,_custom:i>=BASE.length,_ci:i-BASE.length})).filter(q=>{
+   const text=[q.q,q.category,q.sub,...q.options].join(" ").toLowerCase();
+   const isMulti=Array.isArray(q.answer);
+   return (!term||text.includes(term))&&(c==="ALL"||q.category===c)&&(sub==="ALL"||q.sub===sub)&&(type==="ALL"||(type==="MULTI"&&isMulti)||(type==="SINGLE"&&!isMulti));
+ });
+ $("adminCount").textContent=`Showing ${list.length} of ${bank.length} questions`;
+ $("adminList").innerHTML=list.length?list.map((q,n)=>`
+ <div class="question-card">
+   <div class="q-title">${n+1}. ${esc(q.q)}</div>
+   <div>
+     <span class="tag">${esc(q.category)}</span>
+     <span class="tag">${esc(q.sub)}</span>
+     <span class="tag">${Array.isArray(q.answer)?"Multiple Answer":"Single Answer"}</span>
+     ${q._custom?'<span class="tag">Custom</span>':'<span class="tag">Built-in</span>'}
+   </div>
+   <div class="opts" style="margin-top:10px">
+     ${q.options.map((o,i)=>`<div class="opt ${((Array.isArray(q.answer)?q.answer:[q.answer]).includes(i))?'correct':''}">
+       <b>${String.fromCharCode(65+i)}.</b> ${esc(o)}
+     </div>`).join("")}
+   </div>
+   ${q.explain?`<div class="muted small" style="margin-top:10px">💡 ${esc(q.explain)}</div>`:""}
+   <div class="actions">
+     ${q._custom?`<button class="btn secondary" onclick="editMCQ(${q._ci})">✏️ Dynamic Edit</button>
+     <button class="btn danger" onclick="deleteMCQ(${q._ci})">Delete</button>`:"<span class='muted small'>Built-in question</span>"}
+   </div>
+ </div>`).join(""):"<div class='muted'>No matching questions found.</div>";
+}
+function deleteMCQ(i){if(confirm("Delete this MCQ?")){custom.splice(i,1);save();renderAdmin()}}
+function editMCQ(i){
+ const q=custom[i];
+ const category=prompt("Category:",q.category); if(category===null)return;
+ const sub=prompt("Sub-category:",q.sub); if(sub===null)return;
+ const question=prompt("Question:",q.q); if(question===null)return;
+ const opts=prompt("Options (separate with |):",q.options.join("|")); if(opts===null)return;
+ const options=opts.split("|").map(x=>x.trim()).filter(Boolean);
+ if(options.length<2){alert("At least 2 options required.");return}
+ const ans=prompt("Correct index. Example: 1 or [0,2]",JSON.stringify(q.answer)); if(ans===null)return;
+ const explain=prompt("Explanation:",q.explain||""); if(explain===null)return;
+ try{
+   const parsed=Function('"use strict";return ('+ans+')')();
+   const list=Array.isArray(parsed)?parsed:[parsed];
+   if(!list.length||!list.every(x=>Number.isInteger(x)&&x>=0&&x<options.length))throw new Error();
+   if(new Set(list).size!==list.length)throw new Error();
+   q.category=category.trim();q.sub=sub.trim();q.q=question.trim();q.options=options;
+   q.answer=Array.isArray(parsed)?list.sort((a,b)=>a-b):parsed;q.explain=explain.trim();
+   save();renderAdmin();
+   alert("MCQ updated successfully.");
+ }catch(e){alert("Invalid answer index.");}
+}
+function renderHistory(){
+ if(!scores.length){ $("history").innerHTML="<p class='muted'>No exam history yet.</p>"; return; }
+ $("history").innerHTML=scores.map((s)=>{
+   return `<div class="card" style="margin-bottom:14px"><h3>${esc(s.name)} — ${esc(s.date)}</h3><div class="result"><div class="muted">Score</div><b class="score">${s.accuracy}%</b></div></div>`;
+ }).join("");
+}
+function toggleHistory(i){return;}
+function esc(v){return String(v).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+window.addMCQArray=addMCQArray;window.addCategorySubcategory=addCategorySubcategory;window.deleteCategoryPair=deleteCategoryPair;window.renderCategoryManager=renderCategoryManager;window.renderBulkFilters=renderBulkFilters;window.updateBulkSubs=updateBulkSubs;window.renderBulkPreview=renderBulkPreview;window.showPage=showPage;window.updateSubs=updateSubs;window.startExam=startExam;window.chooseAnswer=chooseAnswer;window.submitExam=submitExam;window.addBulk=addBulk;window.pasteSample=pasteSample;window.clearBulk=clearBulk;window.renderAdmin=renderAdmin;window.deleteMCQ=deleteMCQ;window.editMCQ=editMCQ;window.toggleHistory=toggleHistory;
+updateStats();
+renderCategoryManager();
+updateAdminFilters();
+renderBulkFilters();
+</script>
+</body>
+</html>
